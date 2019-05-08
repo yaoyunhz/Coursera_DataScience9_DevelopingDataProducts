@@ -1,0 +1,47 @@
+---
+title: "Week2_Assignment"
+author: "Yun Yao"
+date: "May 8, 2019"
+output: html_document
+---
+
+## Map of New Mexico
+
+This is a map of New Mexico, with the ten largest cities marked with hot air balloons.
+The URLs to cities' official websites are also provided on the map.
+
+```{r}
+library(leaflet)
+NMIcon <- makeIcon(
+    iconUrl = "balloon.png",
+    iconWidth = 20, iconHeight = 20)
+
+NMcities <- data.frame(name = c("Albuquerque", "Las Cruces", "Rio Rancho", 
+                                 "Santa Fe", "Roswell", "Farmington", 
+                                 "Clovis", "Hobbs", "Alamogordo", "Carlsbad"), 
+                                 pop = c(564764, 102731, 102322, 
+                                         85642, 47635, 39622, 
+                                         37966, 37876, 32744, 28866), 
+                                 lat = c(35.105552, 32.326444, 35.285096, 
+                                         35.666038, 33.373442, 36.756941, 
+                                         34.438304, 32.730276, 32.883601,  32.407577),
+                                 lng = c(-106.647388, -106.789695, -106.698869, 
+                                         -105.97372,  -104.529393,  -108.176595, 
+                                         -103.189064, -103.16049, -105.963686,  -104.245167))
+
+NMURLs <- c("<a href = 'https://www.cabq.gov'/>Albuquerque</a>", 
+            "<a href = 'http://www.las-cruces.org'/>Las Cruces</a>", 
+            "<a href = 'https://rrnm.gov'/>Rio Rancho</a>", 
+            "<a href = 'https://www.santafenm.gov'/>Santa Fe</a>", 
+            "<a href = 'https://www.roswell-nm.gov'/>Roswell</a>", 
+            "<a href = 'https://www.fmtn.org'/>Farmington</a>", 
+            "<a href = 'http://www.cityofclovis.org'/>Clovis</a>", 
+            "<a href = 'https://www.hobbsnm.org'/>Hobbs</a>", 
+            "<a href = 'https://ci.alamogordo.nm.us'/>Alamogordo</a>", 
+            "<a href = 'https://www.cityofcarlsbadnm.com'/>Carlsbad</a>")
+
+NMcities %>%
+    leaflet() %>%
+    addTiles() %>%
+    addMarkers(icon = NMIcon, popup = NMURLs)
+```
